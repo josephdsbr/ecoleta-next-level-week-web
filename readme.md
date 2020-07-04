@@ -23,4 +23,4 @@ If you want to ask something, please contact me on my social media.
 * **Linkedin** -  [josephdsbr](https://www.linkedin.com/in/josephdsbr)
 * **GitHub** - [josephdsbr](https://github.com/josephdsbr)
 
-Made with <3 by José Vinícius
+Made with <3 by **José Vinícius**
