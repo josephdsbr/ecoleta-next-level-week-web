@@ -1,7 +1,7 @@
 <h1 align="center">Ecoleta - Web</h1>
 
 <p align="center">
-Ecoleta is a marketplace of waste collection. Its purpuse is to connect the collecting's companies and their clients in a more efficient way. This project was developed following the <a href="https://rocketseat.com.br" target="_blank">Rocketseat Next Level Week Bootcamp</a>.</p>
+Ecoleta is a marketplace of waste collection. Its purpuse is to connect the collecting's companies and their clients in a more efficient way. This project was developed during the <a href="https://rocketseat.com.br" target="_blank">Rocketseat Next Level Week Bootcamp</a>.</p>
 
 <div align="center">
     <img src="./github/images/ecoleta-web.gif" alt="ecoleta-web" height="425" />
