@@ -7,6 +7,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 import api from '../../services/api';
 import axios from 'axios';
+import DropZone from "../../components/DropZone";
 
 interface ItemsModel {
   id: number;
@@ -30,6 +31,7 @@ const CreatePoint: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>('0');
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,7 +54,7 @@ const CreatePoint: React.FC = () => {
         const ufInitials = response.data.map(uf => uf.sigla);
         setUfs(ufInitials);
       })
-  });
+  },[]);
 
   useEffect(() => {
     if(selectedUf === '0') {
@@ -107,13 +109,27 @@ const CreatePoint: React.FC = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+
+
     const { name, email, whatsapp } = formData;
     const city = selectedCity;
     const uf = selectedUf;
     const [latitude, longitude] = selectedPosition;
     const items = selectedItems;
 
-    const data = {name, email, whatsapp, uf, city, latitude, longitude, items};
+    const data = new FormData();
+    data.append('name', name);
+    data.append('email', email);
+    data.append('whatsapp', whatsapp);
+    data.append('city', city);
+    data.append('uf', uf);
+    data.append('latitude', String(latitude));
+    data.append('longitude', String(longitude));
+    data.append('items', items.join(','));
+
+    if (selectedFile) {
+      data.append('image', selectedFile);
+    }
 
     await api.post('points', data);
 
@@ -131,6 +147,7 @@ const CreatePoint: React.FC = () => {
     </header>
     <form onSubmit={handleSubmit}>
       <h1>Cadastro do <br /> Ponto de Coleta</h1>
+      <DropZone onFileUploaded={setSelectedFile} />
       <fieldset>
         <legend>
           <h2>Dados</h2>
@@ -195,7 +212,7 @@ const CreatePoint: React.FC = () => {
             >
               <option value="0">Selecione uma UF</option>
               {ufs.map(uf => (
-                <option value={uf}>{uf.toUpperCase()}</option>
+                <option key={uf.toUpperCase()} value={uf}>{uf.toUpperCase()}</option>
               ))}
             </select>
           </div>
